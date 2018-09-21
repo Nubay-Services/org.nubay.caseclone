@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/case/clone</path>
+    <page_callback>CRM_Caseclone_Form_CaseClone</page_callback>
+    <title>CaseClone</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/case/clone-activities</path>
+    <page_callback>CRM_Caseclone_Form_CaseCloneActivities</page_callback>
+    <title>CaseCloneActivities</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
