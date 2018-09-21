@@ -1,15 +1,17 @@
 # org.nubay.caseclone
 
-![Screenshot](/images/screenshot.png)
+This extension adds two options to the Actions menu for the Case entity. To use these Actions, go to /civicrm/case/search?reset=1 and find the case(s) you'd like to clone. Select the case(s) you'd like to clone and choose one of the options from the 'Actions' menu.
 
-(*FIXME: In one or two paragraphs, describe what the extension does and why one would download it. *)
+  - Clone Case (Clone Activities)
+      Clones the case e.g. contacts, custom field values, title, dates, etc AND any activities attached to that case
 
-The extension is licensed under [AGPL-3.0](LICENSE.txt).
+  - Clone Case (Default Activities)
+      Clones the case e.g. contacts, custom field values, title, dates, etc but with only the default activities set for that case type
 
 ## Requirements
 
 * PHP v5.4+
-* CiviCRM (*FIXME: Version number*)
+* CiviCRM (4.7.x +)
 
 ## Installation (Web UI)
 
@@ -22,7 +24,7 @@ install it with the command-line tool [cv](https://github.com/civicrm/cv).
 
 ```bash
 cd <extension-dir>
-cv dl org.nubay.caseclone@https://github.com/FIXME/org.nubay.caseclone/archive/master.zip
+cv dl org.nubay.caseclone@https://github.com/Nubay-Services/org.nubay.caseclone/archive/master.zip
 ```
 
 ## Installation (CLI, Git)
@@ -31,14 +33,6 @@ Sysadmins and developers may clone the [Git](https://en.wikipedia.org/wiki/Git) 
 install it with the command-line tool [cv](https://github.com/civicrm/cv).
 
 ```bash
-git clone https://github.com/FIXME/org.nubay.caseclone.git
+git clone https://github.com/Nubay-Services/org.nubay.caseclone.git
 cv en caseclone
 ```
-
-## Usage
-
-(* FIXME: Where would a new user navigate to get started? What changes would they see? *)
-
-## Known Issues
-
-(* FIXME *)
