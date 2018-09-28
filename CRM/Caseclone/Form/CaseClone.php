@@ -1,14 +1,43 @@
 <?php
 use CRM_Caseclone_ExtensionUtil as E;
 
-class CRM_Caseclone_Form_CaseClone extends CRM_Case_Form_Task {
+class CRM_Caseclone_Form_CaseClone extends CRM_Core_Form {
 
-  public function preProcess() {
+  public function buildQuickForm() {
+    $queryParams = $this->get('queryParams');
+    $this->assign('queryParams', $queryParams);
+    $count = 0;
+    foreach ($queryParams as $case) {
+      $mark = explode('_', $case[0]);
+      if ($mark[0] == 'mark') {
+        $count += 1;
+      }
+    }
+    $message = ts($count . ' case(s) will be cloned, are you sure you want to continue?');
+    $this->assign('message', $message);
+    $this->addButtons(array(
+      array(
+        'type' => 'submit',
+        'name' => E::ts('Submit'),
+        'isDefault' => TRUE,
+      ),
+      array(
+        'type' => 'back',
+        'name' => E::ts('Cancel'),
+        'isDefault' => TRUE,
+      ),
+    ));
+    // export form elements
+    $this->assign('elementNames', $this->getRenderableElementNames());
+    parent::buildQuickForm();
+  }
+
+  public function postProcess() {
     $queryParams = $this->get('queryParams');
     $count = 0;
     foreach ($queryParams as $case) {
       $mark = explode('_', $case[0]);
-      if ( $mark[0] == 'mark') {
+      if ($mark[0] == 'mark') {
         try {
           $result = civicrm_api3('Case', 'getsingle', [
             'id' => $mark[2],
@@ -23,6 +52,7 @@ class CRM_Caseclone_Form_CaseClone extends CRM_Case_Form_Task {
           unset($result['activities']);
           unset($result['id']);
           $params = $result;
+          $params['subject'] = 'Copy of ' . $params['subject'];
           try {
             $result = civicrm_api3('Case', 'create', $params);
           }
@@ -40,7 +70,18 @@ class CRM_Caseclone_Form_CaseClone extends CRM_Case_Form_Task {
     CRM_Core_Session::setStatus($message, "Cases Cloned", "success");
     $url = "/civicrm/case/search?reset=1";
     CRM_Utils_System::redirect($url);
-    parent::preProcess();
+    parent::postProcess();
+  }
+
+  public function getRenderableElementNames() {
+    $elementNames = array();
+    foreach ($this->_elements as $element) {
+      $label = $element->getLabel();
+      if (!empty($label)) {
+        $elementNames[] = $element->getName();
+      }
+    }
+    return $elementNames;
   }
 
 }
