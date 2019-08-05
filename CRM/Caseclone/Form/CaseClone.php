@@ -42,11 +42,32 @@ class CRM_Caseclone_Form_CaseClone extends CRM_Core_Form {
           $result = civicrm_api3('Case', 'getsingle', [
             'id' => $mark[2],
           ]);
+          $relationships = civicrm_api3('Relationship', 'get', [
+            'sequential' => 1,
+            'case_id' => $result['id'],
+          ]);
         }
         catch (CiviCRM_API3_Exception $e) {
           $error = $e->getMessage();
           watchdog('Case Clone', $error);
           CRM_Core_Error::debug_log_message($error);
+        }
+        if (isset($relationships)) {
+          foreach ($relationships['values'] as $relParams) {
+            try {
+              unset($relParams['id']);
+              unset($relParams['start_date']);
+              unset($relParams['case_id']);
+              $relParams['case_id'] = $newcase['id'];
+              $new = civicrm_api3('Relationship', 'create',
+                $relParams);
+            }
+            catch (CiviCRM_API3_Exception $e) {
+              $error = $e->getMessage();
+              watchdog('Case Clone', $error);
+              CRM_Core_Error::debug_log_message($error);
+            }
+          }
         }
         if (isset($result)) {
           unset($result['activities']);
