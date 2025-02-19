@@ -49,7 +49,6 @@ class CRM_Caseclone_Form_CaseCloneActivities extends CRM_Core_Form {
         }
         catch (CiviCRM_API3_Exception $e) {
           $error = $e->getMessage();
-          watchdog('Case Clone', $error);
           CRM_Core_Error::debug_log_message($error);
         }
         if (isset($result)) {
@@ -66,7 +65,6 @@ class CRM_Caseclone_Form_CaseCloneActivities extends CRM_Core_Form {
           }
           catch (CiviCRM_API3_Exception $e) {
             $error = $e->getMessage();
-            watchdog('Case Clone', $error);
             CRM_Core_Error::debug_log_message($error);
           }
           if (isset($relationships)) {
@@ -81,7 +79,6 @@ class CRM_Caseclone_Form_CaseCloneActivities extends CRM_Core_Form {
               }
               catch (CiviCRM_API3_Exception $e) {
                 $error = $e->getMessage();
-                watchdog('Case Clone', $error);
                 CRM_Core_Error::debug_log_message($error);
               }
             }
@@ -95,7 +92,6 @@ class CRM_Caseclone_Form_CaseCloneActivities extends CRM_Core_Form {
               }
               catch (CiviCRM_API3_Exception $e) {
                 $error = $e->getMessage();
-                watchdog('Case Clone', $error);
                 CRM_Core_Error::debug_log_message($error);
               }
             }
@@ -114,7 +110,6 @@ class CRM_Caseclone_Form_CaseCloneActivities extends CRM_Core_Form {
               }
               catch (CiviCRM_API3_Exception $e) {
                 $error = $e->getMessage();
-                watchdog('Case Clone', $error);
                 CRM_Core_Error::debug_log_message($error);
               }
             }
